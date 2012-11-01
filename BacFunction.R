@@ -1,5 +1,5 @@
 # Attempt to create a function for the BACing algorithm by Nick Street
-DesktopKDDbacingSet <- read.csv("~/R/Bacing/DesktopKDDbacingSet.csv")
+DesktopKDDbacingSet <- read.csv("~/R/Bacing-Street/DesktopKDDbacingSet.csv")
 n <- nrow(DesktopKDDbacingSet)
 delta <- 1/n
 m <- 0
