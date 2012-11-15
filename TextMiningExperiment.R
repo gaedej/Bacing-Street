@@ -63,5 +63,7 @@ knn.pred <- knn(tdm.stack.nl[train.idx, ], tdm.stack.nl[idx, ], tdm.cand[train.i
 
 conf.mat <- table("Predictions" = knn.pred, Actual = td.cand[test.idx])
 conf.mat
+(accuracy <- sum(diag(conf.mat)) / length(test.idx = 100))
+
 
 
