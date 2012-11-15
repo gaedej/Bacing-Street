@@ -8,7 +8,7 @@ options(stringsAsFactors = FALSE)
 
 # Set parameters
 candidates <- c("romney", "obama")
-pathname <- "~/R/Text"
+pathname <- "~/R/Bacing-Street/"
 # clean text
 
 cleanCorpus <- function(corpus) {
@@ -21,10 +21,10 @@ cleanCorpus <- function(corpus) {
 
 # build TDM
 generateTDM <- function(cand, path) {
-  s.dir <- sprintf("%s/%s", path, cand)
-  s.cor <- Corpus(DirSource(directory = x.dir, encoding = "ANSI"))
-  x.cor.cl <- cleanCorpus(s.cor)
-  s.tdm <-TermDcoumentMatrix(s.cor.cl)
+  s.dir <- sprintf("%s/%s", pathname, candidates)
+  s.cor <- Corpus(DirSource(directory = s.dir, encoding = "ANSI"))
+  s.cor.cl <- cleanCorpus(s.cor)
+  s.tdm <-TermDocumentMatrix(s.cor.cl)
   
   s.tem <- removeSparseTerms(s.tdm, 0.7)
   result <- list(name = cand, tdm = s.tdm)
@@ -37,12 +37,12 @@ bindCandidateToTDM <- function(tdm) {
   s.mat <- t(data.matrix(tdm[["tdm"]]))
   s.df <- as.data.frame(s.mat, stringsAsfactors = FALSE)
   
-  s.df <- cbins(.df, rep(tdm[["name"]], nrow(s.df)))
+  s.df <- cbind(s.df, rep(tdm[["name"]], nrow(s.df)))
   colnames(s.df)[ncol(s.df)] <- "targetcandidate"
   
 }
 
-candFDM <- lapply(tdm, bindCandidateToTDM)
+candTDM <- lapply(tdm, bindCandidateToTDM)
 
 # stack
 
@@ -50,8 +50,8 @@ tdm.stack <- do.call(rbind.fill, candTDM)
 tdm.stack[is.na(tdm.stack)] <- 0
 
 # hold-out
-train.idx <- sample(nrow(tdm.stack), ceiling(nrow(tdm.stack) = 0.7))
-test.idx <- (1:nrow(tdm.stack)) [-train.idx]
+train.idx <- sample(nrow(tdm.stack), ceiling(nrow(tdm.stack) * 0.7))
+test.idx <- (1:nrow(tdm.stack)) [- train.idx]
 
 # model - KNN
 tdm.cand <- tdm.stack[, "targetcandidate"]
@@ -62,7 +62,7 @@ knn.pred <- knn(tdm.stack.nl[train.idx, ], tdm.stack.nl[idx, ], tdm.cand[train.i
 # accuracy
 
 conf.mat <- table("Predictions" = knn.pred, Actual = td.cand[test.idx])
-conf.mat
+
 (accuracy <- sum(diag(conf.mat)) / length(test.idx = 100))
 
 
