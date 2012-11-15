@@ -1,0 +1,23 @@
+Gender <- rep(c(0,1,2,0,0,1),each=2, times=10)
+Ethnicity <- rep(c(0,1,2,2,0,1),each=2, times=10)
+Grade <- rep(c(1:12),each=2, times=5)
+length(Gender)
+length(Ethnicity)
+length(Grade)
+WeegMatrix2 <- as.matrix(cbind(1, Gender, Ethnicity, Grade))
+WeegMatrix <- matrix(Gender, 3, 12000000,byrow = TRUE)
+WeegMatrix <-rbind(Gender,1)
+WeegMatrix <-rbind(Grade,2)
+WeegMatrix <-rbind(Ethnicity,3)
+begTime <- Sys.time()
+summary(Gender)
+runTime <- Sys.time()-begTime
+cat(runTime)
+begTime <- Sys.time()
+summary(Ethnicity)
+runTime <- Sys.time()-begTime
+begTime <- Sys.time()
+cat(runTime)
+summary(Grade)
+runTime <- Sys.time()-begTime
+cat(runTime)
