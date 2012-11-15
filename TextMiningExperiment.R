@@ -54,8 +54,14 @@ train.idx <- sample(nrow(tdm.stack), ceiling(nrow(tdm.stack) = 0.7))
 test.idx <- (1:nrow(tdm.stack)) [-train.idx]
 
 # model - KNN
-tdm.cand <- tdm.stack[, "targetcandidatre"]
-tdm.stack.nl <- tdm.stack[, !colnames ]
+tdm.cand <- tdm.stack[, "targetcandidate"]
+tdm.stack.nl <- tdm.stack[, !colnames(tdm.stack) %in% "targetcandidate"]
 
+knn.pred <- knn(tdm.stack.nl[train.idx, ], tdm.stack.nl[idx, ], tdm.cand[train.idx])
 
 # accuracy
+
+conf.mat <- table("Predictions" = knn.pred, Actual = td.cand[test.idx])
+conf.mat
+
+
