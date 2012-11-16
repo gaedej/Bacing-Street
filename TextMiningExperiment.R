@@ -39,7 +39,7 @@ bindCandidateToTDM <- function(tdm) {
   
   s.df <- cbind(s.df, rep(tdm[["name"]], nrow(s.df)))
   colnames(s.df)[ncol(s.df)] <- "targetcandidate"
-  
+  return(s.df)
 }
 
 candTDM <- lapply(tdm, bindCandidateToTDM)
@@ -57,11 +57,11 @@ test.idx <- (1:nrow(tdm.stack)) [- train.idx]
 tdm.cand <- tdm.stack[, "targetcandidate"]
 tdm.stack.nl <- tdm.stack[, !colnames(tdm.stack) %in% "targetcandidate"]
 
-knn.pred <- knn(tdm.stack.nl[train.idx, ], tdm.stack.nl[idx, ], tdm.cand[train.idx])
+knn.pred <- knn(tdm.stack.nl[train.idx, ], tdm.stack.nl[test.idx, ], tdm.cand[train.idx])
 
 # accuracy
 
-conf.mat <- table("Predictions" = knn.pred, Actual = td.cand[test.idx])
+conf.mat <- table("Predictions" = knn.pred, Actual = tdm.cand[test.idx])
 
 (accuracy <- sum(diag(conf.mat)) / length(test.idx = 100))
 
