@@ -9,7 +9,7 @@
 #          ,6,'Native Hawaiian/Other Pacific Islander' 
 #          ,7,'Two or more races' 
 #          ,0,'Prefer not to respond') ethnicity 
-Iterations <- 10000000
+Iterations <- 20000000
 
 Gender <- sample(0:2, Iterations, replace = TRUE)
 Grade <- sample(8:12, Iterations, replace = TRUE)
@@ -31,8 +31,17 @@ Bmatrix4 <- rbind(Bmatrix4, Grade_10)
 Bmatrix4 <- rbind(Bmatrix4, Race_3)
 Bmatrix4 <- rbind(Bmatrix4, District_1000)
 
+begTime <- Sys.time()
 z <- Bmatrix3==Bmatrix4
+runTime <- Sys.time()-begTime
+cat(runTime)
+# optional system.time(z <- Bmatrix3==Bmatrix4)
+
 zSum <- colSums(z)
-which(zSum==4)
+True_Col <- which(zSum==4)
 Number_of_Trues <- which(z==TRUE)
 length(Number_of_Trues)
+
+z[1:4,True_Col]
+True_Col
+
