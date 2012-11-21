@@ -9,7 +9,7 @@
 #          ,6,'Native Hawaiian/Other Pacific Islander' 
 #          ,7,'Two or more races' 
 #          ,0,'Prefer not to respond') ethnicity 
-Iterations <- 20000000
+Iterations <- 1000000
 
 Gender <- sample(0:2, Iterations, replace = TRUE)
 Grade <- sample(8:12, Iterations, replace = TRUE)
@@ -26,10 +26,19 @@ Bmatrix3 <- rbind(Bmatrix3, Grade)
 Bmatrix3 <- rbind(Bmatrix3, Race)
 Bmatrix3 <- rbind(Bmatrix3, District)
 
+rm(Grade)
+rm(Race)
+rm(District)
+
 Bmatrix4 <- matrix(Gender_1, nrow = 1, ncol = length(Gender_1))
 Bmatrix4 <- rbind(Bmatrix4, Grade_10)
 Bmatrix4 <- rbind(Bmatrix4, Race_3)
 Bmatrix4 <- rbind(Bmatrix4, District_1000)
+
+rm(Gender_1)
+rm(Grade_10)
+rm(Race_3)
+rm(District_1000)
 
 begTime <- Sys.time()
 z <- Bmatrix3==Bmatrix4
