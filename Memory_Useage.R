@@ -28,3 +28,4 @@ lsos <- function(..., n=10) {
 }
 
 lsos()
+
