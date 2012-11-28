@@ -5,4 +5,5 @@ con = dbConnect(drv, user="gaedej", password="Fcgdaeb1", dbname="server_forcast"
 dbListTables(con)
 dbListFields(con, "ossec_alerts")
 OA_Rule <- dbReadTable(con, "ossec_alerts", row.names = "oa_rule")
+# LdAvg_15 <- dbReadTable(con, "loadavg", row.names = "ld_avg_15")
 summary(OA_Rule)
